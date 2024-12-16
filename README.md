@@ -12,3 +12,14 @@ estacionamento - Genrencia o cadastro de vagas de estacionamento
 - Foi realizado o tratamento de exerceções como por exemplo: ValueError e PermissionError.
 - A limpeza do código com as ferramentas: Flake8, Pylint e SonarQube.
 - Além disso também foi realizado os testes com a ferramenta insomnia.
+
+*** LINKS ***
+
+Link para a página do SonarQube:
+https://sonarcloud.io/project/overview?id=PedroHercules0810_Segunda-Unidade-Manuten-o
+
+Link para a página do Sentry:
+
+
+Link para a página do PythonAnyWhere:
+
