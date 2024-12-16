@@ -10,8 +10,8 @@ estacionamento - Genrencia o cadastro de vagas de estacionamento
 ***CHANGELOG***
 
 - Foi realizado o tratamento de exerceções como por exemplo: ValueError e PermissionError.
-- A limpeza do código com as ferramentas: Flake8, Pylint e SonarQube.
-- Além disso também foi realizado os testes com a ferramenta insomnia.
+- A limpeza do código com as ferramentas: Flake8, Pylint.
+- Além disso também foi realizado os testes com as ferramentas insomnia e SonarQube.
 
 *** LINKS ***
 
