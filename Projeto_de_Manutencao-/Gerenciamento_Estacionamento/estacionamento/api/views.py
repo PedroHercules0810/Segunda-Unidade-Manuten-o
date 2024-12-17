@@ -8,6 +8,8 @@ from estacionamento.api.serializers import VeiculoSerializer
 from estacionamento.api.serializers import EstacionamentoSerializer
 from estacionamento.models import Cliente, Veiculo, Estacionamento
 
+ERROR = "permissão negada!"
+
 
 class ClienteViewSet(ModelViewSet):
     """cria uma viewset para o model Cliente"""
@@ -46,13 +48,13 @@ class EstacionamentoViewSet(ModelViewSet):
 
         except PermissionError:
             return response(
-                {"Erro": "Permissão negada!"},
+                {"Erro": ERROR},
                 status=status.HTTP_403_FORBIDDEN
              )
 
         except PermissionDenied:
             return response(
-                {"Error": "Permissão negada!"},
+                {"Error": ERROR},
                 status=status.HTTP_403_FORBIDDEN
             )
 

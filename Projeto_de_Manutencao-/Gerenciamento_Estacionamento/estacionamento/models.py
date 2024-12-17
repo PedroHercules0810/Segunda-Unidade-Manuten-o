@@ -1,6 +1,6 @@
 """importes necessários para criação de models"""
-from typing import Any
 from django.db import models
+from django.utils import timezone
 
 
 class Cliente(models.Model):
@@ -10,7 +10,7 @@ class Cliente(models.Model):
     telefone = models.PositiveBigIntegerField()
 
     def __str__(self):
-        return self.nome
+        return f"{self.nome}"
 
 
 class Veiculo(models.Model):
@@ -22,7 +22,9 @@ class Veiculo(models.Model):
     tipo = models.CharField(max_length=50)
 
     def __str__(self):
-        return f" {self.cliente.nome} - {self.modelo} - {self.tipo}"
+        # pylint: disable=no-member E1101
+        cliente = Cliente.objects.get(id=self.cliente)
+        return f'{cliente.nome}'
 
 
 class Estacionamento(models.Model):
@@ -35,12 +37,14 @@ class Estacionamento(models.Model):
     def liberar_vaga(self):
         """Método para liberar vaga"""
         if self.horario_saida is None:
-            self.horario_saida = Any()
+            self.horario_saida = timezone.now()
             self.save()
             return "A vaga foi liberada com sucesso!"
         return "A vaga já foi liberada anteriormente."
 
     def __str__(self):
+        # pylint: disable=no-member E1101
+        self.cliente = Cliente.objects.get(id=self.cliente)
         if self.horario_saida:
             return f"Estacionamento para {self.cliente.nome} - Vaga liberada."
         return f"Estacionamento para {self.cliente.nome} - Ocupada."
