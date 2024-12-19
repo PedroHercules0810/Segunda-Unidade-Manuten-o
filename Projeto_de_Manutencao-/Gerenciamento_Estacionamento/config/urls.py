@@ -27,7 +27,7 @@ router = SimpleRouter()
 
 
 def trigger_error(request):
-    division_by_zero = 1 / 0
+    #division_by_zero = 1 / 0
 router.register("users", UserProfileExampleViewSet, basename="users")
 router.register("estacionamento", EstacionamentoViewSet, basename="estacionamentos")
 router.register("veiculo", VeiculoViewSet, basename="veiculos")
