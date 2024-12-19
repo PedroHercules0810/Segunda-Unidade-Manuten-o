@@ -1,0 +1,24 @@
+@startuml
+class Cliente {
+    + nome: String
+    + CPF: String
+    + telefone: Integer
+}
+
+class Veiculo {
+    + modelo: String
+    + placa: String
+    + cor: String
+    + tipo: String
+}
+
+class Estacionamento {
+    + horario_entrada: DateTime
+    + horario_saida: DateTime
+    + liberar_vaga()
+}
+
+Cliente "1" --> "0..*" Veiculo
+Cliente "1" --> "0..*" Estacionamento
+Veiculo "1" --> "0..*" Estacionamento
+@enduml

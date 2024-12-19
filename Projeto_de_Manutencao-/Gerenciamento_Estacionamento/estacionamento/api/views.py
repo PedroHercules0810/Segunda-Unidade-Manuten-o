@@ -7,6 +7,7 @@ from estacionamento.api.serializers import ClienteSerializer
 from estacionamento.api.serializers import VeiculoSerializer
 from estacionamento.api.serializers import EstacionamentoSerializer
 from estacionamento.models import Cliente, Veiculo, Estacionamento
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 ERROR = "permissão negada!"
 
@@ -26,7 +27,13 @@ class VeiculoViewSet(ModelViewSet):
 class EstacionamentoViewSet(ModelViewSet):
     """"cria uma viewset para o model Estacionamento"""
     serializer_class = EstacionamentoSerializer
+    permission_classes = [IsAuthenticated]
     queryset = Estacionamento.objects.all()
+
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return [IsAdminUser()]
+        return super().get_permissions()
 
     def create(self, request, *args, **kwargs):
         try:

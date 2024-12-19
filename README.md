@@ -22,8 +22,4 @@ estacionamento - Genrencia o cadastro de vagas de estacionamento
 Link para a página do SonarQube:
 https://sonarcloud.io/project/overview?id=PedroHercules0810_Segunda-Unidade-Manuten-o
 
-Link para a página do Sentry:
-
-
 Link para a página do PythonAnyWhere:
-
