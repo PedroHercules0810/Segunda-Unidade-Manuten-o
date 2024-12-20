@@ -26,8 +26,8 @@ from estacionamento.api.views import VeiculoViewSet, EstacionamentoViewSet
 router = SimpleRouter()
 
 
-def trigger_error(request):
-    division_by_zero = 1 / 0
+# def trigger_error(request): #função para testar o sentry
+#     division_by_zero = 1 / 0
 router.register("users", UserProfileExampleViewSet, basename="users")
 router.register("estacionamento", EstacionamentoViewSet, basename="estacionamentos")
 router.register("veiculo", VeiculoViewSet, basename="veiculos")
@@ -36,7 +36,7 @@ router.register("cliente", ClienteViewSet, basename="clientes")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('sentry-debug/', trigger_error),
+    #path('sentry-debug/', trigger_error), #url para testar o sentry
     path("api/token-auth/", views.obtain_auth_token),
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
