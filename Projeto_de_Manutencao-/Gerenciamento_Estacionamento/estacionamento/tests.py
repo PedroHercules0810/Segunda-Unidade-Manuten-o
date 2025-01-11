@@ -13,13 +13,13 @@ class ClienteTesteCase(TestCase):
         )
 
     def test_cadastrar_cliente(self):
-        url = "http://localhost:8000/clientes"
+        url = "http://localhost:8000/cliente"
         data = {
             "nome": "Claudio Maia",
             "CPF": "12345671245",
             "telefone": 997654321
         }
-        response = self.client.post(url, data)
+        response = self.client.post(url, data, content_type="application/json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertTrue(Cliente.objects.filter(nome="Claudio Maia").exists())
 
@@ -27,7 +27,7 @@ class ClienteTesteCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
 
     def test_listar_cliente(self):
-        url = "http://localhost:8000/clientes"
+        url = "http://localhost:8000/cliente"
         Cliente.objects.create(
             nome="Claudio Maia",
             CPF="12345671245",
@@ -37,20 +37,20 @@ class ClienteTesteCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_atualizar_cliente(self):
-        url = f"http://localhost:8000/clientes/{self.novo_cliente.id}/"
+        url = f"http://localhost:8000/cliente/{self.novo_cliente.id}/"
         data = {
             "nome": "Maria Maia",
             "CPF": "12348671245",
             "telefone": 997655321
         }
-        response = self.client.put(url, data)
+        response = self.client.put(url, data, content_type="application/json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_deletar_cliente(self):
-        url = f"http://localhost:8000/clientes/{self.novo_cliente.id}/"
+        url = f"http://localhost:8000/cliente/{self.novo_cliente.id}/"
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertFalse(Cliente.objects.filter(id=novo_cliente.id).exists())
+        self.assertFalse(Cliente.objects.filter(id=self.novo_cliente.id).exists())
 
 
 class VeiculoTesteCase(TestCase):
@@ -99,7 +99,7 @@ class VeiculoTesteCase(TestCase):
         self.assertEqual(response.data[0]['placa'], "ABC1234")
 
     def test_atualizar_veiculo(self):
-        url = f"http://localhost:8000/veiculos/{self.novo_veiculo.id}/"
+        url = f"http://localhost:8000/veiculo/{self.novo_veiculo.id}/"
         data = {
             "cliente": self.novo_cliente.id,
             "modelo": "Toyota Corolla",
@@ -107,11 +107,11 @@ class VeiculoTesteCase(TestCase):
             "cor": "Cinza",
             "tipo": "Carro"
         }
-        response = self.client.put(url, data)
+        response = self.client.put(url, data, content_type="application/json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_deletar_veiculo(self):
-        url = f"http://localhost:8000/veiculos/{self.novo_veiculo.id}/"
+        url = f"http://localhost:8000/veiculo/{self.novo_veiculo.id}/"
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Veiculo.objects.filter(id=self.novo_veiculo.id).exists())
@@ -139,7 +139,7 @@ class EstacionamentoTesteCase(TestCase):
         )
 
     def test_criar_estacionamento(self):
-        url = "http://localhost:8000/estacionamentos"
+        url = "http://localhost:8000/estacionamento"
         data = {
             "cliente": self.cliente.id,
             "veiculos": self.veiculo.id,
