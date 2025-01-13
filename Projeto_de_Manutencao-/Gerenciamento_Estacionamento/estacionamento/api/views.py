@@ -8,6 +8,7 @@ from estacionamento.api.serializers import VeiculoSerializer
 from estacionamento.api.serializers import EstacionamentoSerializer
 from estacionamento.models import Cliente, Veiculo, Estacionamento
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from estacionamento.services import EstacionamentoService
 
 ERROR = "permissão negada!"
 
@@ -29,6 +30,7 @@ class EstacionamentoViewSet(ModelViewSet):
     serializer_class = EstacionamentoSerializer
     permission_classes = [IsAuthenticated]
     queryset = Estacionamento.objects.all()
+    service = EstacionamentoService()
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
@@ -50,7 +52,7 @@ class EstacionamentoViewSet(ModelViewSet):
         except KeyError:
             return Response(
                 {"Erro": "Dado faltando/errado!"},
-                status=status.HTTP_400_BAD_REQUEST
+                status=status.HTTP_400_BAD_REQUEST  
             )
 
         except PermissionError:
